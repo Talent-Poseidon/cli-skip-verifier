@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   UserCircle,
   Shield,
+  FolderKanban,
   LogOut,
   ChevronDown,
 } from "lucide-react";
@@ -73,13 +74,27 @@ export function DashboardShell({ user, profile, children }: DashboardShellProps)
               <Link
                 href="/admin"
                 className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  pathname.startsWith("/admin")
+                  pathname === "/admin"
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`}
               >
                 <Shield className="h-4 w-4" />
                 Admin
+              </Link>
+            )}
+            {profile.role === "admin" && (
+              <Link
+                href="/admin/projects"
+                data-testid="projects-menu"
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  pathname.startsWith("/admin/projects")
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+              >
+                <FolderKanban className="h-4 w-4" />
+                Projects
               </Link>
             )}
           </nav>
