@@ -70,7 +70,41 @@ async function main() {
     },
   });
 
-  console.log({ originalAdmin, testAdmin, testUser, seedProject });
+  // Seed competency dictionary for E2E tests
+  const seedCompetencyDictionary = await prisma.competencyDictionary.upsert({
+    where: { id: 'seed-competency-dict-1' },
+    update: {},
+    create: {
+      id: 'seed-competency-dict-1',
+      name: 'Seed Competency Template',
+      fileName: 'seed-template.xlsx',
+      fileUrl: '/uploads/seed-template.xlsx',
+    },
+  });
+
+  // Seed job standard for E2E tests
+  const seedJobStandard = await prisma.jobStandard.upsert({
+    where: { id: 'seed-job-standard-1' },
+    update: {},
+    create: {
+      id: 'seed-job-standard-1',
+      jobTitle: 'Seed Software Engineer',
+      scoreExpectation: 85.0,
+    },
+  });
+
+  // Seed scenario for E2E tests
+  const seedScenario = await prisma.scenario.upsert({
+    where: { id: 'seed-scenario-1' },
+    update: {},
+    create: {
+      id: 'seed-scenario-1',
+      name: 'Seed Exam Scenario',
+      description: 'A seeded scenario for E2E testing',
+    },
+  });
+
+  console.log({ originalAdmin, testAdmin, testUser, seedProject, seedCompetencyDictionary, seedJobStandard, seedScenario });
 }
 
 main()
