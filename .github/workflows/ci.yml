@@ -206,7 +206,7 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           PROJECT_NAME: ${{ steps.target.outputs.project_name }}
           DB_URL: ${{ secrets.DATABASE_URL }}
-          AUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'change_me_in_vercel_dashboard_32chars_min' }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET || 'change_me_in_vercel_dashboard_32chars_min' }}
         run: |
           # teamId param hanya disertakan jika VERCEL_ORG_ID tidak kosong
           if [[ -n "$VERCEL_ORG_ID" ]]; then
@@ -294,7 +294,7 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           PROJECT_ID: ${{ steps.vercel_project.outputs.project_id }}
           DB_URL: ${{ secrets.DATABASE_URL }}
-          AUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'change_me_in_vercel_dashboard_32chars_min' }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET || 'change_me_in_vercel_dashboard_32chars_min' }}
           PROJECT_NAME: ${{ steps.target.outputs.project_name }}
         run: |
           if [[ -z "$DB_URL" ]]; then
@@ -347,10 +347,11 @@ jobs:
       # memblokir IP GitHub Actions → deploy tetap jalan, jalankan migrasi manual jika perlu
       - name: Run Prisma Migrations
         continue-on-error: true
+        timeout-minutes: 2
         run: pnpm prisma migrate deploy
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DIRECT_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DIRECT_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
 
       # Inspect Vercel project before deploying
       - name: Inspect Vercel project
