@@ -7,7 +7,7 @@ on:
     branches: ["main", "staging"]
 
 jobs:
-  # ── Job 1: Build & Lint ──────────────────────────────────────────────────────
+  # ── Job 1: Build & Lint  ──────────────────────────────────────────────────────
   # Berjalan di semua branch dan pull request.
   # Menggunakan dummy env vars — tidak perlu database sungguhan saat build.
   build:
